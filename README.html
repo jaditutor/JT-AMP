@@ -1,0 +1,15 @@
+<div id="parser2">
+<textarea id="somewhere" placeholder='Tulis/paste kode di sini lalu klik tombol Parse Codes'></textarea>
+<div class='alert alert-success margin-bottom-20 collapse' id='btnInfo' role='alert'>
+<button class='close close-copy' onclick='document.getElementById(&quot;btnInfo&quot;).style.display = &quot;none&quot;;cdClear();' type='button'><span aria-hidden='true'>&#215;</span></button>
+<h4>Codes copied to clipboard!</h4>
+</div>
+<br/>
+<button onclick="convert();" class='btn btn-primary btn-sm btn-parse' type="button">Parse Codes</button>
+<div class="clear"></div>
+<button class='btn button-link btn-xs btn-info' id='button-link' data-clipboard-action='copy' data-clipboard-target='#somewhere' type='submit'>Copy codes to clipboard!</button> <button class='btn btn-danger btn-xs' id='btn_clear' onclick='cdClear();'>Bersihkan</button></div>
+<script type="text/javascript">
+//<![CDATA[
+function downloadJSAtOnload(){var d=document.createElement("script");d.src="https://cdn.rawgit.com/KompiAjaib/kompi-js/084f0a35/copyclipboard_parse.js",document.body.appendChild(d)}window.addEventListener?window.addEventListener("load",downloadJSAtOnload,!1):window.attachEvent?window.attachEvent("onload",downloadJSAtOnload):window.onload=downloadJSAtOnload;
+//]]>
+</script>
