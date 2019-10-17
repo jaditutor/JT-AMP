@@ -5,6 +5,7 @@
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#2B0C93",
+  "gcm_sender_id": "215388814277",
   "description": "Beragam informasi seputar blogging teknologi dan gadget dikemas dari berbagai sumber dan pengalaman dalam bentuk tutorial",
   "icons": [{
     "src": "https://2.bp.blogspot.com/-bnx7C8XsMgE/XXVVf9zPrvI/AAAAAAAACFo/ml56RZvvUaQm46ULsUE2E55OC3cSHGRmACK4BGAYYCw/s48/logo%2B4.png",
