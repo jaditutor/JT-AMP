@@ -1,7 +1,7 @@
 {
   "name": "JadiTutor.com",
   "short_name": "JadiTutor",
-  "start_url": "https://jaditutor.blogspot.com?launcher=true",
+  "start_url": "/?utm_source=homescreen",
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#2B0C93",
