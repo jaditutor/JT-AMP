@@ -1,5 +1,4 @@
-
-<div id="disqus_thread"></div>
+<div id="comments"></div>
 <script>
   window.addEventListener('message', receiveMessage, false);
 
@@ -44,23 +43,29 @@ if (style.styleSheet){
 }
 head.appendChild(style);
 
-    /**
-     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-     */
-    var disqus_shortname = getQueryVariable('shortname');
-    var disqus_config = function () {
-        this.page.url = getQueryVariable('canonicalurl');
-        this.page.identifier = '';
-        this.page.title = getQueryVariable('title');
-    };
-    
-    (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
-        var d = document, s = d.createElement('script');
-        
-        s.src = '//'+disqus_shortname+'.disqus.com/embed.js';  // IMPORTANT: Replace EXAMPLE with your forum shortname!
-        
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
+                var disqus_shortname = getQueryVariable('shortname');
+                var disqus_blogger_current_url = getQueryVariable('canonicalurl');
+
+                if (!disqus_blogger_current_url.length) {
+                    disqus_blogger_current_url = getQueryVariable('url');
+                }
+
+                var disqus_blogger_homepage_url = getQueryVariable('homepageurl');
+                var disqus_blogger_canonical_homepage_url = getQueryVariable('canonicalhomepageurl');
+ 
+                    (function() {
+                        var bloggerjs = document.createElement('script');
+                        bloggerjs.type = 'text/javascript';
+                        bloggerjs.async = true;
+                        bloggerjs.src = '//'+disqus_shortname+'.disqus.com/blogger_item.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(bloggerjs);
+                    })();
+
+                (function() {
+                    var bloggerjs = document.createElement('script');
+                    bloggerjs.type = 'text/javascript';
+                    bloggerjs.async = true;
+                    bloggerjs.src = '//'+disqus_shortname+'.disqus.com/blogger_index.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(bloggerjs);
+                })();
 </script>
