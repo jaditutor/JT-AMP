@@ -1,43 +1,46 @@
 <div id="disqus_thread"></div>
 <script>
-window.addEventListener('message', receiveMessage, false);
-function receiveMessage(event)
-{
-    if (event.data) {
-        var msg;
-        try {
-            msg = JSON.parse(event.data);
-        } catch (err) {
-            // Do nothing
-        }
-        if (!msg)
-            return false;
-
-        if (msg.name === 'resize' || msg.name === 'rendered') {
-            window.parent.postMessage({
-              sentinel: 'amp',
-              type: 'embed-size',
-              height: msg.data.height
-            }, '*');
-        }
-    }
-}
-</script>
-<script>
-    /**
-     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-     */
+    var parentUrl = document.referrer;
     var disqus_config = function () {
-        this.page.url = window.location;  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = window.location.hash; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    (function() {  // DON'T EDIT BELOW THIS LINE
+        this.page.url = parentUrl;
+        this.page.identifier = parentUrl;
+        };
+    //Github Default
+    (function () {
         var d = document, s = d.createElement('script');
-
         s.src = '//jaditutor.disqus.com/embed.js';
-
         s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
+            (d.head || d.body).appendChild(s);
+        })();
+    (function () {
+        function checkSizeChange() {
+            var viewportHeight = window.innerHeight;
+            var contentHeight = document.getElementById('disqus_thread').clientHeight;
+            if (viewportHeight !== contentHeight && contentHeight > 100) {
+                window.parent.postMessage({
+                sentinel: 'amp',
+                type: 'embed-size',
+                height: contentHeight
+                }, '*')
+            }
+        }
+        var mutationObserverAvailable = typeof window.MutationObserver === 'function';
+        function bindObserver() {
+            var frame = document.getElementsByTagName('iframe')[0];
+            if (frame === null || frame === undefined) {
+                setTimeout(bindObserver, 200);
+                return;
+                }
+            checkSizeChange();
+            var resizeObserver = new MutationObserver(checkSizeChange);
+                resizeObserver.observe(frame, {
+                    attributes: true,
+                    attributeFilter: ['style']
+                    });
+                }
+                if (mutationObserverAvailable) {
+                    bindObserver();
+                    }
+                setInterval(checkSizeChange, mutationObserverAvailable ? 5000 : 500);
+        })();
 </script>
