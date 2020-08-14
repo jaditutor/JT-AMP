@@ -1,4 +1,14 @@
-<style scoped="">
+
+
+
+<link href='https://fonts.googleapis.com/css?family=Roboto:100,200,300,400italic,400,500,500italic,700,700italic,900' rel='stylesheet' type='text/css'/>
+<style>
+body {
+  background:transparent;
+  margin:0;
+  padding:0;
+  color:#212121;font-family:Roboto,sans-serif;
+}
 .btn,.btn:active{background-image:none}
 .btn{font-weight:400;padding:6px 12px;margin-bottom:5px;font-size:14px;line-height:1.42857143;text-align:center;white-space:nowrap;-ms-touch-action:manipulation;touch-action:manipulation;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid transparent;border-radius:4px;cursor:pointer}
 .btn:active:focus,.btn:focus{outline:0}
@@ -21,27 +31,82 @@
 .collapse{display:none}
 #parser2{position:relative}
 .alert-success{color:#3c763d;background-color:#dff0d8;border-color:#d6e9c6}
-.alert{padding:15px;border:1px solid transparent;border-radius:4px;position:absolute;top:10px;right:10px;min-width:230px} button.close{padding:0;cursor:pointer;background:0 0;border:0;-webkit-appearance:none;line-height:1}
+.alert{padding:15px;border:1px solid transparent;border-radius:4px;position:absolute;top:10px;right:10px;min-width:230px}
+button.close{padding:0;cursor:pointer;background:0 0;border:0;-webkit-appearance:none;line-height:1;z-index:2}
 .close{float:right;font-size:1.5rem;font-weight:700;line-height:1;color:#000;text-shadow:0 1px 0 #fff;opacity:.2}
 button.close:focus{outline:0}
 .close:hover{opacity:1!important}
 #btnInfo h4{margin:0}
-#button-link{display:none}
+#button-link,#btn_clear{display:none}
+.btn-reset{padding:0;border:0;background:0 0;position:absolute;top:10px;right:15px;color:#ddd;font-size:34px;font-weight:lighter;cursor:pointer;line-height:1;display:none;z-index:1}
+.btn-reset:hover{color:#555}
+.btn-reset:focus{outline:0}
 .clear{clear:both;display:block;margin-bottom:2px;}
 </style>
 <div id="parser2">
-<textarea id="somewhere" placeholder='Tulis/paste kode di sini lalu klik tombol Parse Codes'></textarea>
+<textarea id="somewhere" placeholder='Tulis/paste kode di sini lalu klik tombol Parse Codes' onfocusin="focusFunction()"></textarea>
 <div class='alert alert-success margin-bottom-20 collapse' id='btnInfo' role='alert'>
-<button class='close close-copy' onclick='document.getElementById(&quot;btnInfo&quot;).style.display = &quot;none&quot;;cdClear();' type='button'><span aria-hidden='true'>&#215;</span></button>
-<h4>Codes copied to clipboard!</h4>
-</div>
-<br/>
+        <button class='close close-copy' onclick='document.getElementById(&quot;btnInfo&quot;).style.display = &quot;none&quot;;cdClear();' type='button'><span aria-hidden='true'>&#215;</span></button>
+        <h4>Codes copied to clipboard!</h4>
+      </div>
+<button class='btn-reset' id='btn-reset' onclick='cdClear2();'>&times;</button>
+      <br/>
 <button onclick="convert();" class='btn btn-primary btn-sm btn-parse' type="button">Parse Codes</button>
 <div class="clear"></div>
 <button class='btn button-link btn-xs btn-info' id='button-link' data-clipboard-action='copy' data-clipboard-target='#somewhere' type='submit'>Copy codes to clipboard!</button> <button class='btn btn-danger btn-xs' id='btn_clear' onclick='cdClear();'>Bersihkan</button>
 </div>
 <script type="text/javascript">
+function convert() {
+    var ele1 = document.getElementById("somewhere");
+    var replaced;
+    replaced = ele1.value;
+    replaced = replaced.replace(/&/ig, "&amp;");
+    replaced = replaced.replace(/</ig, "&lt;");
+    replaced = replaced.replace(/>/ig, "&gt;");
+    replaced = replaced.replace(/"/ig, "&quot;");
+    replaced = replaced.replace(/'/ig, "&#039;");
+    replaced = replaced.replace(/&#177;/ig, "&plusmn;");
+    replaced = replaced.replace(/&#169;/ig, "&copy;");
+    replaced = replaced.replace(/&#174;/ig, "&reg;");
+    replaced = replaced.replace(/ya'll/ig, "ya'll");
+    ele1.value = replaced;
+	document.getElementById("button-link")
+        .style.display = "inline-block";
+    document.getElementById("btn_clear")
+        .style.display = "inline-block";
+		document.getElementById("btn-reset")
+        .style.display = "none";
+}
+function cdClear() {
+  var wtarea = document.getElementById('somewhere');
+  wtarea.value = '';
+  document.getElementById("btnInfo")
+        .style.display = "none",document.getElementById("button-link")
+        .style.display = "none",document.getElementById("btn_clear")
+        .style.display = "none"
+}
+function cdClear2() {
+  var wtarea = document.getElementById('somewhere');
+  wtarea.value = '';
+  document.getElementById("btn-reset")
+        .style.display = "none";
+}
+function focusFunction() {
+    document.getElementById("btn-reset").style.display = "block";
+}
+</script>
+<script src='https://cdn.statically.io/gh/zenorocha/clipboard.js/v1.5.16/dist/clipboard.min.js'></script>
+<script>
 //<![CDATA[
-function downloadJSAtOnload(){var d=document.createElement("script");d.src="https://cdn.statically.io/gh/jaditutor/JT-AMP/62e97608/JtParser.js",document.body.appendChild(d)}window.addEventListener?window.addEventListener("load",downloadJSAtOnload,!1):window.attachEvent?window.attachEvent("onload",downloadJSAtOnload):window.onload=downloadJSAtOnload;
+var clipboard = new Clipboard(".button-link");
+clipboard.on("success", function (o) {
+    console.log(o), document.getElementById("btnInfo")
+        .style.display = "block", document.getElementById("button-link")
+        .style.display = "none", document.getElementById("btn-reset")
+        .style.display = "none", document.getElementById("somewhere")
+        .value = ""
+}), clipboard.on("error", function (o) {
+    console.log(o)
+});
 //]]>
 </script>
